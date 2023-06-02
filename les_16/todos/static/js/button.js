@@ -1,11 +1,13 @@
 
 function handleClick() {
-    alert("Вы нажали на кнопку");
-    return 1
+    alert("You complete a task!");
 };
 
 window.onload = function() {
-    console.log('документ загрузился');
+    var buttons = document.getElementsByTagName("button")
+    for(var i=0; i<buttons.length; i++) {
+        buttons[i].addEventListener('click', handleClick)
+    }
 
-    document.getElementById(1).addEventListener('click', handleClick());
+
 };

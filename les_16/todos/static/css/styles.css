@@ -1,5 +1,5 @@
 .header-style {
-    color: green;
+    color: black;
     text-align:center;
     font: italic 9em "Fira Sans", serif;
     margin: 40px
@@ -18,14 +18,17 @@
     margin: 10px 10px 10px 10px;
     text-align:center;
     padding: 10px;
-    border-width:1;
-    border-color: rgb(190,190,190);
+    border-width:2;
+    border-color: #FF0000;
     border-style: solid;
-    background: ;
+    background: -webkit-linear-gradient(90deg, #fe8140,#fed04f);
+    background: linear-gradient(90deg, #fe8140,#fed04f);
+
 }
 
 .body-style {
-    background: linear-gradient(90deg, #faf0cd, #fab397);
+    background: -webkit-linear-gradient(113deg, #ccd3d4,#a7adad,#828687);
+    background: linear-gradient(113deg, #ccd3d4,#a7adad,#828687);
 }
 
 .complete-button {
