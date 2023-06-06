@@ -1,0 +1,7 @@
+{% extends "base.html" %}
+
+{% block content %}
+    {% for todo in todos %}
+        {% include "includes/todo.html" %}
+    {% endfor %}
+{% endblock %}

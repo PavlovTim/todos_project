@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block content %}
+<form method="post" action="{% url 'todo' %}">
+  <h1>Add todo</h1>
+  <label for="name">Название книги:</label>
+  <input type="text" id="name" name="name"><br><br>
+  <input type="submit" value="Добавить">
+</form>
+{% endblock %}
