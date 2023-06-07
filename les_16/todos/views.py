@@ -74,7 +74,7 @@ def home(request):
         todo["userId"] = int(todo["userId"])
         todos.append_todo(Todo(todo['userId'], todo['id'],
                                todo['title'], todo['completed']))
-        return render(request, "todos.html", {"todos": todos})
+        return render(request, "todos.html", {"todos": todos.output_in_json()})
 
 def get_todo(request, id):
     return render(request, 'todos.html', {'todos': [todos.get_by_id(id).for_json_out()]})
