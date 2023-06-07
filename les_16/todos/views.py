@@ -54,6 +54,11 @@ todos = Todos()
 for i in requests.get(settings.URL).json():
     todos.append_todo(Todo(i['userId'], i['id'], i['title'], i['completed']))
 
+def todo_db(request):
+    from .models import Todo
+    todos = Todo.objects.all()
+    todos_data = [todo for todo in todos.values('name','description', 'completed')]
+    return JsonResponse({'todos': todos_data})
 
 def json_out(request):
     return JsonResponse({'todos': todos.output_in_json()})
