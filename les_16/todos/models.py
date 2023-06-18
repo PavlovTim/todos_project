@@ -7,4 +7,3 @@ class Todo(models.Model):
     description = models.CharField(max_length=255)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     completed = models.BooleanField(default=False)
-# Create your models here.
