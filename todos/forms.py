@@ -35,4 +35,7 @@ class TodoUpdateForm(TodoForm):
         cleaned_data['name'] = cleaned_data.get('name') or self.instance.name
         cleaned_data['description'] = cleaned_data.get('description') or self.instance.description
         cleaned_data['user'] = cleaned_data.get('user') or self.instance.user
-        cleaned_data['completed'] = cleaned_data.get('completed') or self.instance.completed
+        if cleaned_data['completed'] is None:
+            cleaned_data['completed'] = False
+        else:
+            cleaned_data['completed'] = True
