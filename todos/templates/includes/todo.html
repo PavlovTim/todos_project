@@ -1,7 +1,13 @@
-<div class="line-block">
-    <h2> ID : {{todo.id}}</h2>
-    <p>Name: {{todo.name}}</p>
-    <p>Description: {{todo.description}}</p>
-    <p>Complete: {{todo.completed}}</p>
-    <button data-id="{{todo.id}}">Complete</button>
+<div class="col-sm-6">
+    <div class="card post-card todo-style">
+        <div class="card-body">
+            <h1 class="card-title">{{todo.id}}
+                <span class="badge text-bg-info" data-post-id="{{todo.name}}">{{todo.name}}</span>
+                <span class="badge badge-info">{{todo.user}}</span>
+            </h1>
+            <p class="card-text">{{todo.description}}</p>
+            <p class="card-text">{{todo.completed}}</p>
+        </div>
+         <button data-id="{{todo.id}}">Complete</button>
+    </div>
 </div>

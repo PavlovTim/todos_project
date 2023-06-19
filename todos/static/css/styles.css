@@ -5,8 +5,12 @@
     margin: 40px
 }
 
+.content {
+    margin: 30px;
+}
+
 .todo-style {
-    color: blue;
+    color: black;
     margin: 10px
 }
 
