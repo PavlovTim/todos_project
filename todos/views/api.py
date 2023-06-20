@@ -1,11 +1,10 @@
 from django.forms import model_to_dict
 from django.http import JsonResponse
-from todos.models_func import todos_data
 from todos.models import Todo
 
 
 def todos_json(request):
-    return JsonResponse({'todos': todos_data()})
+    return JsonResponse({'todos': [model_to_dict(obj) for obj in Todo.objects.all()]})
 
 def get_todo_json(request, todo_id: int):
     try:

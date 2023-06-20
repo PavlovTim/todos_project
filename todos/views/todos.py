@@ -5,8 +5,7 @@ from django.template.defaulttags import csrf_token
 from django.views.decorators.csrf import csrf_exempt
 
 from todos.models import Todo
-from todos.models_func import todo_save, todos_data
-from todos.forms import TodoForm
+from todos.forms import TodoForm, TodoUpdateForm
 
 
 def todos(request):
@@ -31,6 +30,17 @@ def create_todo(request):
         else:
             return render(request, "create_todo.html", {"form": form})
     return render(request, "create_todo.html", {"form": TodoForm()})
+
+def update_todo(request, todo_id):
+    todo = Todo.objects.get(id=todo_id)
+    form = TodoUpdateForm(instance=todo)
+    if request.method == "POST":
+        form = TodoUpdateForm(request.POST, instance=todo)
+        if form.is_valid():
+            form.save()
+            return redirect("todos")
+    return render(request, "update_todo.html", {"form": form})
+
 
 
 @csrf_exempt
