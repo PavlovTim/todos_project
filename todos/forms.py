@@ -4,7 +4,7 @@ from .models import Todo, User
 
 
 class TodoForm(forms.ModelForm):
-
+    description = forms.CharField(max_length=255, widget=forms.Textarea)
 
     class Meta:
         model = Todo
@@ -23,19 +23,16 @@ class TodoForm(forms.ModelForm):
 
 class TodoUpdateForm(TodoForm):
     user = forms.ModelChoiceField(queryset=User.objects.all())
-    completed = forms.ChoiceField(choices = (("True",True), ("False", False)))
-    description = forms.CharField(required=False)
+    completed = forms.ChoiceField(choices=(("True",True), ("False", False)))
+    description = forms.CharField(max_length=255, widget=forms.Textarea)
 
     class Meta:
         model = Todo
-        fields = ['name', 'description', 'user', 'completed']
+        fields = ['id', 'name', 'description', 'user', 'completed']
 
     def clean(self):
         cleaned_data = super().clean()
         cleaned_data['name'] = cleaned_data.get('name') or self.instance.name
         cleaned_data['description'] = cleaned_data.get('description') or self.instance.description
         cleaned_data['user'] = cleaned_data.get('user') or self.instance.user
-        if cleaned_data['completed'] is None:
-            cleaned_data['completed'] = False
-        else:
-            cleaned_data['completed'] = True
+        cleaned_data.get('completed') if cleaned_data.get('completed') is not None else self.instance.completed
