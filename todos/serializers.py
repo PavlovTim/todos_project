@@ -4,7 +4,7 @@ from rest_framework import serializers
 
 
 class TodoSerializer(serializers.HyperlinkedModelSerializer):
-    user = serializers.ReadOnlyField(source="user.username")
+    user = serializers.SlugRelatedField(slug_field="username", queryset=User.objects.all())
 
     class Meta:
         model = Todo
