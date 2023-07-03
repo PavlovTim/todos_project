@@ -2,6 +2,7 @@ from django.forms import model_to_dict
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from django.template.defaulttags import csrf_token
+from django.views.decorators.cache import cache_page
 from django.views.decorators.csrf import csrf_exempt
 
 from todos.models import Todo
@@ -12,13 +13,14 @@ def todos(request):
     if request.method == "GET":
         return render(request, 'todos.html', {'todos': Todo.objects.all()})
 
-
+# @cache_page(60 * 15)
 def get_todo(request, todo_id):
     try:
         todo_object = Todo.objects.get(id=todo_id)
+        dougth_todo = Todo.objects.filter(parent_todo=todo_object)
     except Exception:
         return JsonResponse({'status': 404, 'errors': 'Todo not found.'})
-    return render(request, 'todos.html', {'todos': [todo_object]})
+    return render(request, 'todos.html', {'todos': [todo_object]+list(dougth_todo)})
 
 
 def create_todo(request):
