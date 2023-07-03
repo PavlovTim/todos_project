@@ -103,7 +103,7 @@ SIMPLE_JWT = {
 CACHES = {
     "default": {
         "BACKEND": "django.core.cache.backends.filebased.FileBasedCache",
-        "LOCATION": ".cache",
+        "LOCATION": "cache",
     }
 }
 
