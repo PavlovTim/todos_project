@@ -107,6 +107,8 @@ CACHES = {
     }
 }
 
+CACHE_TIME = 60 * 15
+
 WSGI_APPLICATION = 'les_16.wsgi.application'
 
 

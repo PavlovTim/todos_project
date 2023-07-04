@@ -46,7 +46,7 @@ def create_initial_db():
     ).save()
     Todo(
         name="I just got home from watching it",
-        description="I just got ho3me from watching it and oh my god I literally have"
+        description="I just got home from watching it and oh my god I literally have"
                     " zero notes it’s perfect through and through",
         user=user_1
     ).save()

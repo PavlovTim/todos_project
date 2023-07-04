@@ -1,6 +1,6 @@
 from django import forms
 from django.core.exceptions import ValidationError
-from .models import Todo, User, Priority
+from .models import Todo, User, Priority, Label
 
 
 class TodoForm(forms.ModelForm):
@@ -24,6 +24,7 @@ class TodoForm(forms.ModelForm):
     def clean_priority(self):
         return Priority.objects.get(value=self.cleaned_data['priority'])
 
+
 class TodoUpdateForm(TodoForm):
     user = forms.ModelChoiceField(queryset=User.objects.all())
     completed = forms.ChoiceField(choices=(("True",True), ("False", False)))
@@ -41,6 +42,27 @@ class TodoUpdateForm(TodoForm):
         cleaned_data['user'] = cleaned_data.get('user') or self.instance.user
         cleaned_data['priority'] = cleaned_data.get('priority') or self.instance.priority
         cleaned_data['parent_todo'] = cleaned_data.get('parent_todo') or self.instance.parent_todo
+        cleaned_data['label'] = cleaned_data.get('label') or self.instance.label
         cleaned_data.get('completed') if cleaned_data.get('completed') is not None else self.instance.completed
+
+
+class UserRegistrationForm(forms.ModelForm):
+    password = forms.CharField(label='Password', widget=forms.PasswordInput)
+    password2 = forms.CharField(label='Repeat password', widget=forms.PasswordInput)
+
+    class Meta:
+        model = User
+        fields = ('username', 'first_name', 'email')
+
+    def clean_password_2(self):
+        cd = self.cleaned_data
+        if cd['password'] != cd['password2']:
+            raise forms.ValidationError('Passwords don\'t match.')
+        return cd['password_2']
+
+
+class LoginForm(forms.Form):
+    username = forms.CharField()
+    password = forms.CharField(widget=forms.PasswordInput)
 
 
