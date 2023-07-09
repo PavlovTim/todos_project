@@ -27,6 +27,7 @@ def create_initial_db():
         name="Make noise",
         description="Making spherical sound to u'r neighbor",
         user=user_3
+
     ).save()
     Todo(
         name="Cleaning",

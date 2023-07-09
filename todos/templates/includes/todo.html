@@ -8,8 +8,26 @@
                 <span class="badge text-bg-secondary">{{todo.user}}</span>
             </h2>
             <p class="card-text">{{todo.description}}</p>
-            <span class="card-text true-false">{{todo.completed}}</span>
+            <p class="card-text true-false">Completed: {{todo.completed}}</p>
+            <p class="card-text true-false">Priority: {{todo.priority.value}}</p>
+            {% if todo.parent_todo %}
+                <p class="card-text true-false">Parent todo: {{todo.parent_todo}}</p>
+
+            {% endif %}
+            {% if todo.label.all %}
+                <p class="card-text true-false">Label: </p>
+                {% for lab in todo.label.all %}
+                    <p class="card-text true-false">{{lab}}</p>
+                {% endfor %}
+            {% endif %}
+            <form action="update/{{todo.id}}">
+                <button class="btn">Update</button>
+            </form>
+            <form action="{{todo.id}}">
+                <button class="btn">Checkout todo info</button>
+            </form>
         </div>
-         <button data-id="{{todo.id}}">Complete</button>
+
+        <a href="{% url 'complete_todo' todo_id=todo.id %}" class="btn btn-success">Complete</a>
     </div>
 </div>
