@@ -1,3 +1,4 @@
+from datetime import date
 from django.contrib.auth.models import User
 from django.db import models
 
@@ -16,9 +17,10 @@ class Priority(models.Model):
 class Todo(models.Model):
     name = models.CharField(max_length=128)
     description = models.CharField(max_length=255)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="todos")
     parent_todo = models.ForeignKey('Todo', null=True, blank=True, on_delete=models.CASCADE, related_name='todos')
     completed = models.BooleanField(default=False)
+    mod_date = models.DateField(default=date.today)
     priority = models.ForeignKey(Priority, on_delete=models.CASCADE, null=False)
     label = models.ManyToManyField('Label', blank=True, null=True)
 

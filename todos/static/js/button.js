@@ -1,6 +1,7 @@
 function completeTask(){
     event.preventDefault();
     url = event.target.getAttribute("href");
+    console.log(url);
     axios.post(url).then(response => {
         console.log(response)
         document.querySelector(`[data-todo-id="${response["data"]["todo"]["id"]}"]`).textContent = response['data']['todo']['completed'];
