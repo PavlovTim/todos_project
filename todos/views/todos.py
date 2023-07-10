@@ -1,4 +1,5 @@
 from django.contrib.auth import authenticate, login
+from django.forms import model_to_dict
 from django.http import JsonResponse, HttpResponse
 from django.shortcuts import render, redirect
 from django.views.decorators.cache import cache_page
@@ -60,7 +61,8 @@ def complete_todo(request, todo_id):
         todo = Todo.objects.get(id=todo_id)
         todo.completed = True
         todo.save()
-        return JsonResponse({"status": 200, "message": "Post successfully updated"})
+        return JsonResponse({"status": 200, "message": "Post successfully updated",
+                             "todo": model_to_dict(todo, exclude="label")})
 
 
 def user_register(request):
