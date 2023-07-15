@@ -1,4 +1,5 @@
 from django.contrib.auth import authenticate, login
+from django.forms import model_to_dict
 from django.http import JsonResponse, HttpResponse
 from django.shortcuts import render, redirect
 from django.views.decorators.cache import cache_page
@@ -6,11 +7,14 @@ from django.views.decorators.csrf import csrf_exempt
 from les_16.settings import CACHE_TIME
 from todos.models import Todo
 from todos.forms import TodoForm, TodoUpdateForm, UserRegistrationForm, LoginForm
+from todos.tasks import log_once_day
 
 
 def todos(request):
+    log_once_day()
     if request.method == "GET":
         return render(request, 'todos.html', {'todos': Todo.objects.all()})
+
 
 @cache_page(CACHE_TIME)
 def get_todo(request, todo_id):
@@ -32,6 +36,7 @@ def create_todo(request):
             return render(request, "create_todo.html", {"form": form})
     return render(request, "create_todo.html", {"form": TodoForm()})
 
+
 def update_todo(request, todo_id):
     todo = Todo.objects.get(id=todo_id)
     form = TodoUpdateForm(instance=todo)
@@ -43,12 +48,12 @@ def update_todo(request, todo_id):
     return render(request, "update_todo.html", {"form": form})
 
 
-
 @csrf_exempt
 def delete_todo(request, todo_id):
     if request.method == "POST":
         Todo.objects.get(id=todo_id).delete()
         return redirect("todos")
+
 
 @csrf_exempt
 def complete_todo(request, todo_id):
@@ -56,7 +61,8 @@ def complete_todo(request, todo_id):
         todo = Todo.objects.get(id=todo_id)
         todo.completed = True
         todo.save()
-        return JsonResponse({"status": 200, "message": "Post successfully updated"})
+        return JsonResponse({"status": 200, "message": "Post successfully updated",
+                             "todo": model_to_dict(todo, exclude="label")})
 
 
 def user_register(request):

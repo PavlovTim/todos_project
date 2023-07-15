@@ -2,13 +2,13 @@
     <div class="card post-card todo-style">
         <div class="card-body">
             <h1 class="card-title">{{todo.id}}
-                <span class="badge text-bg-info" data-post-id="{{todo.name}}">{{todo.name}}</span>
+                <span class="badge text-bg-info">{{todo.name}}</span>
             </h1>
             <h2>
                 <span class="badge text-bg-secondary">{{todo.user}}</span>
             </h2>
             <p class="card-text">{{todo.description}}</p>
-            <p class="card-text true-false">Completed: {{todo.completed}}</p>
+            <p class="card-text true-false" data-todo-id="{{todo.id}}">Completed: {{todo.completed}}</p>
             <p class="card-text true-false">Priority: {{todo.priority.value}}</p>
             {% if todo.parent_todo %}
                 <p class="card-text true-false">Parent todo: {{todo.parent_todo}}</p>

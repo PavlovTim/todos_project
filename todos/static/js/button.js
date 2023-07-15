@@ -1,9 +1,11 @@
 function completeTask(){
     event.preventDefault();
     url = event.target.getAttribute("href");
+    console.log(url);
     axios.post(url).then(response => {
-        console.log(response)
-        document.querySelector(`[data-todo-id="${response["data"]["todo"]["id"]}"]`).textContent = response['data']['todo']['completed'];
+        console.log(response);
+        status = response['data']['todo']['completed'];
+        document.querySelector(`[data-todo-id="${response["data"]["todo"]["id"]}"]`).textContent = "Completed: True";
     })
 
 };

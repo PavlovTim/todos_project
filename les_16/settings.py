@@ -9,10 +9,12 @@ https://docs.djangoproject.com/en/4.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
+import os
 from datetime import timedelta
 from pathlib import Path
 
 import django.core.cache.backends.filebased
+from celery.schedules import crontab
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -27,9 +29,27 @@ SECRET_KEY = 'django-insecure-vgf@r+s_(!52w_hxk^h1k(m631k_ax9e6&7*rg*rkrsx3)w32a
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["127.0.0.1"]
+ALLOWED_HOSTS = ["*"]
 
+CELERY_BROKER_URL = "redis://127.0.0.1:6379"
+CELERY_RESULT_BACKEND = "redis://127.0.0.1:6379"
 
+CELERY_BEAT_SCHEDULE = {
+    'create_posts': {
+        'task': 'todos.tasks.log_once_day',
+        'schedule': crontab(minute='0', hour='0'),
+    },
+}
+
+CACHES = {
+    "default": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": "redis://127.0.0.1:6379/1",
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient",
+        }
+    }
+}
 # Application definition
 
 INSTALLED_APPS = [
@@ -191,3 +211,4 @@ if DEBUG == True:
         'SHOW_TOOLBAR_CALLBACK': 'les_16.settings.show_toolbar',
     }
 
+STATIC_ROOT = os.path.join(BASE_DIR, STATIC_URL)
