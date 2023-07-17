@@ -14,6 +14,7 @@ class Priority(models.Model):
     def __str__(self):
         return self.value
 
+
 class Todo(models.Model):
     name = models.CharField(max_length=128)
     description = models.CharField(max_length=255)
@@ -26,6 +27,7 @@ class Todo(models.Model):
 
     def __str__(self):
         return self.name
+
 
 class Label(models.Model):
     name = models.CharField(max_length=100)
