@@ -1,3 +1,5 @@
+from datetime import date
+
 import pytest
 from todos.tests.todos.test_app import test_data
 
@@ -23,7 +25,7 @@ def test_get_todo(client, test_data):
         'completed': False,
         'id': 1,
         'label': ['Homework', 'Outside'],
-        'mod_date': '2023-07-17',
+        'mod_date': date.today,
         'parent_todo': None
     }
 
