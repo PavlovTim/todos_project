@@ -1,5 +1,3 @@
-import copy
-
 from django.forms import model_to_dict
 from django.http import JsonResponse
 from todos.models import Todo
@@ -13,6 +11,7 @@ def todos_json(request):
         dict_['label'] = [j.name for j in list(pr)]
         model_list.append(dict_)
     return JsonResponse({'todos': model_list})
+
 
 def get_todo_json(request, todo_id: int):
     try:

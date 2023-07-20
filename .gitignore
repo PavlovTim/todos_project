@@ -5,3 +5,4 @@ __pycache__
 .ipynb_checkpoints/
 .env
 venv_django/
+.pytest_cache/
