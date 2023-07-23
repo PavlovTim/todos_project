@@ -10,4 +10,5 @@ urlpatterns = [
     path('complete/<int:todo_id>/>', todos.complete_todo, name='complete_todo'),
     path('login', todos.user_login, name='user_login'),
     path('register', todos.user_register, name='user_register'),
+    path('logout', todos.user_logout, name='user_logout')
 ]

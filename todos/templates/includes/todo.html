@@ -21,11 +21,15 @@
                 {% endfor %}
             {% endif %}
             <form action="update/{{todo.id}}">
-                <button class="btn">Update</button>
+                <button class="btn btn-primary">Update</button>
             </form>
             <form action="{{todo.id}}">
-                <button class="btn">Checkout todo info</button>
+                <button class="btn btn-warning">Checkout todo info</button>
             </form>
+             <form action="delete/{{todo.id}}" method="POST">
+                <button class="btn btn-danger">Delete</button>
+            </form>
+
         </div>
 
         <a href="{% url 'complete_todo' todo_id=todo.id %}" class="btn btn-success">Complete</a>
