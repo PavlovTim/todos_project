@@ -4,6 +4,10 @@
     font: italic 9em "Fira Sans", serif;
     margin: 40px
 }
+.text {
+    color:red;
+}
+
 .true-false {
     color: grey;
     text-align:center;

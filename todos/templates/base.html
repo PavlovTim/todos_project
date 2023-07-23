@@ -22,13 +22,21 @@
             </li>
 
         </ul>
+        {% if request.user.is_authenticated %}
         <ul class="nav justify-content-end">
             <li class="nav-item">
-                <a class="navbar-brand" href="{% url 'user_register' %}">Register</a> <a class="navbar-brand" href="{% url 'user_login' %}" >Login</a>
-
+                <a class="navbar-brand" href="{% url 'user_login' %}">Hello, {{user.username}}</a> <a class="navbar-brand" href="{% url 'user_logout' %}" >Logout</a>
             </li>
-        </ul>
-      </d   iv>
+          </ul>
+        {% else %}
+          <ul class="nav justify-content-end">
+            <li class="nav-item">
+                <a class="navbar-brand" href="{% url 'user_register' %}">Register</a> <a class="navbar-brand" href="{% url 'user_login' %}" >Login</a>
+            </li>
+          </ul>
+        {% endif %}
+
+      </div>
     </nav>
     <h1 class="header-style">It's our todo list!</h1>
 
